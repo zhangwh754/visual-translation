@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>可视化翻译</title>
+  <link rel="stylesheet" href="./style/style.css">
+</head>
+
+<body>
+  <div class="main">
+    <div class="view">
+      <div class="panel panel-1">
+        <label for="origin">原文:</label>
+        <textarea id="origin"></textarea>
+      </div>
+    </div>
+    <div class="view">
+      <div class="panel panel-2">
+        <div class='block' contenteditable='true'>Click on this node again to allocate it, granting:</div>
+        <br>
+        <div class='block' contenteditable='true' style='color:#cb9780'>»</div>
+        <div class='block' contenteditable='true'>Unlock basic activation of</div>
+        <div class='block' contenteditable='true' style='color:#ebc808'>Prosperity</div>
+        <div class='block' contenteditable='true'>.</div>
+        <br>
+        <div class='block' contenteditable='true' style='color:#cb9780'>»</div>
+        <div class='block' contenteditable='true' style='color:#ebc808'>Prosperity</div>
+        <div class='block' contenteditable='true'>grants +1 Leadership.</div>
+        <br>
+        <div class='block' contenteditable='true' style='color:#cb9780'>»</div>
+        <div class='block' contenteditable='true'>+1 Constitution.</div>
+      </div>
+    </div>
+    <div class="view">
+      <div class="panel panel-3">
+        <label for="translation">结果复制:</label>
+        <textarea id="translation"></textarea>
+      </div>
+    </div>
+    <div class="view">
+      <div class="panel panel-4">
+        <p align='left'>
+          <font color='a8a8a8' face='Averia Serif'>Click on this node again to allocate it, granting:</font>
+          <br>
+          <font color='cb9780'>»</font> Unlock basic activation of <font color="ebc808" face="Averia Serif">
+            Prosperity</font>.<br>
+          <font color='cb9780'>»</font>
+          <font color="ebc808" face="Averia Serif">Prosperity</font> grants +1 Leadership.<br>
+          <font color='cb9780'>»</font> +1 Constitution.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script src="./lib/jquery.min.js"></script>
+  <script src="./index.js"></script>
+</body>
+
+</html>
