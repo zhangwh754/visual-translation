@@ -2,6 +2,7 @@ function createEditableBlock(content, style = "", isPlain = false) {
   const span = document.createElement("span");
   span.className = "block";
   span.setAttribute("contenteditable", "true");
+  span.setAttribute("draggable", "true");
   span.style = style;
   span.textContent = content;
   if (isPlain) span.dataset.type = "plain";

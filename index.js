@@ -11,7 +11,36 @@ $(function () {
     localStorage.setItem("fileType", $(this).val());
   });
 
+  $("#action-1").on("click", function () {
+    $(".block")
+      .last()
+      .after(
+        `<span class="block" contenteditable="true" data-type="plain" style="" draggable="true"></span>`
+      );
+  });
+  $("#action-2").on("click", function () {
+    const val = translationDom.val();
+
+    navigator.clipboard.writeText(val).then(() => {
+      console.log("Text copied to clipboard");
+
+      $("#action-2").toggleClass("active");
+
+      setTimeout(() => {
+        $("#action-2").toggleClass("active");
+      }, 2000);
+    });
+  });
+  $("#action-3").on("click", function () {
+    const isEditable = $(".block").first().attr("contenteditable") === "true";
+
+    $(".block").attr("contenteditable", !isEditable);
+  });
+
   originDom.on("input", function () {
+    $(".button").removeAttr("disabled");
+    $(".panel-4").html("暂无修改");
+
     const xmlString = $(this).val();
     translationDom.val(xmlString);
 
@@ -26,7 +55,6 @@ $(function () {
     }
 
     const result = conventXMLTagsToHtml(value);
-    console.log(result);
 
     $(".panel-2").html(result);
 
@@ -35,10 +63,12 @@ $(function () {
         if (isComposite) return;
         const result = convertHtmlToXML($(this).parent().parent().html());
 
-        console.log(result.innerHTML);
-
         const originVal = translationDom.val();
-        const convertVal = replaceContentAttribute(originVal, result.innerHTML, fileTypeSelect.val() === "lsx");
+        const convertVal = replaceContentAttribute(
+          originVal,
+          result.innerHTML,
+          fileTypeSelect.val() === "lsx"
+        );
 
         translationDom.val(convertVal);
 
@@ -54,4 +84,12 @@ $(function () {
       isComposite = false;
     });
   });
+
+  $(".panel-2").on("dragstart", ".block", dragstart);
+  $(".panel-2").on("dragend", ".block", dragend);
+  $(".panel-2").on("dragover", ".block", dragover);
+  $(".panel-2").on("dragleave", ".block", dragleave);
+  $(".panel-2").on("drop", ".block", drop);
+
+  $(".panel-2").on("dbcl", ".block", drop);
 });
