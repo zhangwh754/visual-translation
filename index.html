@@ -11,7 +11,15 @@
     <div class="main">
       <div class="view">
         <div class="panel panel-1">
-          <label for="origin">原文:</label>
+          <div class="select">
+            <label for="origin">原文:</label>
+
+            <select name="origin">
+              <option disabled value="">--请选择文件类型--</option>
+              <option value="lsx">Lsx</option>
+              <option value="xml">Xml</option>
+            </select>
+          </div>
           <textarea id="origin"></textarea>
         </div>
       </div>

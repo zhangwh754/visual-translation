@@ -1,7 +1,15 @@
 $(function () {
   const originDom = $("#origin");
   const translationDom = $("#translation");
+  const fileTypeSelect = $("select[name='origin']");
+
+  fileTypeSelect.val(localStorage.getItem("fileType") || "lsx");
+
   let isComposite = false;
+
+  fileTypeSelect.on("change", function () {
+    localStorage.setItem("fileType", $(this).val());
+  });
 
   originDom.on("input", function () {
     const xmlString = $(this).val();
@@ -9,8 +17,13 @@ $(function () {
 
     var parser = new DOMParser();
     var xmlDoc = parser.parseFromString(xmlString, "text/xml");
-    var contentAttribute = xmlDoc.querySelector('attribute[id="Content"]');
-    var value = contentAttribute.getAttribute("value");
+
+    if (fileTypeSelect.val() === "lsx") {
+      var contentAttribute = xmlDoc.querySelector('attribute[id="Content"]');
+      var value = contentAttribute.getAttribute("value");
+    } else if (fileTypeSelect.val() === "xml") {
+      var value = xmlDoc.firstChild.textContent;
+    }
 
     const result = conventXMLTagsToHtml(value);
     console.log(result);
@@ -25,7 +38,7 @@ $(function () {
         console.log(result.innerHTML);
 
         const originVal = translationDom.val();
-        const convertVal = replaceContentAttribute(originVal, result.innerHTML);
+        const convertVal = replaceContentAttribute(originVal, result.innerHTML, fileTypeSelect.val() === "lsx");
 
         translationDom.val(convertVal);
 

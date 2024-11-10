@@ -147,18 +147,19 @@ function convertRGB(rgbString) {
   return toHexString(r) + toHexString(g) + toHexString(b);
 }
 
-function replaceContentAttribute(xmlString, newValue) {
+function replaceContentAttribute(xmlString, newValue, isLsx) {
   // 使用 DOMParser 解析 XML 字符串
   const parser = new DOMParser();
   const xmlDoc = parser.parseFromString(xmlString, "application/xml");
 
-  // 查找 attribute 节点，并修改 id="Content" 的 value
-  const contentAttribute = xmlDoc.querySelector('attribute[id="Content"]');
-  if (contentAttribute) {
-    contentAttribute.setAttribute("value", newValue);
+  if (isLsx) {
+    // 查找 attribute 节点，并修改 id="Content" 的 value
+    const contentAttribute = xmlDoc.querySelector('attribute[id="Content"]');
+    if (contentAttribute) {
+      contentAttribute.setAttribute("value", newValue);
+    }
   } else {
-    console.warn("未找到 id 为 'Content' 的 attribute 节点。");
-    return xmlString; // 未找到时返回原始 XML
+    xmlDoc.firstChild.textContent = newValue;
   }
 
   // 使用 XMLSerializer 将修改后的 XML 转回字符串
