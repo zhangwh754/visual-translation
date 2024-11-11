@@ -142,6 +142,8 @@ $(function () {
 
     translate(text).then((res) => {
       $(this).text(res);
+
+      $('.block[contenteditable="true"]').first().trigger("input");
     });
   });
 });
