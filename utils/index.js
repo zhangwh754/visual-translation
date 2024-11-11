@@ -4,7 +4,7 @@ function createEditableBlock(content, style = "", isPlain = false) {
   span.setAttribute("contenteditable", "true");
   span.setAttribute("draggable", "true");
   span.style = style;
-  span.textContent = content;
+  span.textContent = autoTransferByDictionary(content);
   if (isPlain) span.dataset.type = "plain";
   return span;
 }
@@ -166,4 +166,22 @@ function replaceContentAttribute(xmlString, newValue, isLsx) {
   // 使用 XMLSerializer 将修改后的 XML 转回字符串
   const serializer = new XMLSerializer();
   return serializer.serializeToString(xmlDoc);
+}
+
+/**
+ * @param {String} str
+ */
+function autoTransferByDictionary(str) {
+  let tempStr = str;
+
+  DICTIONARY.forEach((item) => {
+    if (item.regex && item.regex.test(tempStr)) {
+      tempStr = tempStr.replace(item.regex, item.value);
+    }
+    if (tempStr.includes(item.label)) {
+      tempStr = tempStr.replaceAll(item.label, item.value);
+    }
+  });
+
+  return tempStr;
 }

@@ -48,7 +48,7 @@ function translate(query) {
           q: query,
         },
         success: function (data) {
-          const result = data[0][0][0];
+          const result = data[0].map(([str]) => str).join('，');
 
           resolve(result);
         },
