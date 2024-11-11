@@ -93,3 +93,55 @@ $(function () {
 
   $(".panel-2").on("dbcl", ".block", drop);
 });
+
+// 百度翻译弹窗
+$(function () {
+  $(".popup").hide();
+
+  $("body").on("click", function () {
+    $(".popup").hide();
+  });
+
+  $(".popup").on("click", function (e) {
+    e.stopPropagation();
+  });
+
+  const storedValue = localStorage.getItem("translationType") || "google";
+  $(`input[name="translate"][value="${storedValue}"]`).prop("checked", true);
+
+  $('input[name="translate"]').on("change", function () {
+    localStorage.setItem("translationType", $(this).val());
+  });
+
+  $('input[name="translate"]').on("click", function (e) {
+    e.stopPropagation();
+    console.log($(this).val());
+
+    if ($(this).val() === "baidu") {
+      $(".popup").show();
+
+      ["appid", "secretKey"].forEach((name) => {
+        const value = localStorage.getItem(name) || "";
+        $(`#${name}`).val(value);
+      });
+    }
+  });
+
+  $(".popup input").on("input", function () {
+    const value = $(this).val();
+    const name = $(this).attr("name");
+
+    localStorage.setItem(name, value);
+  });
+});
+
+// 调用翻译api
+$(function () {
+  $(".panel-2").on("dblclick", ".block", function () {
+    const text = $(this).text();
+
+    translate(text).then((res) => {
+      $(this).text(res);
+    });
+  });
+});

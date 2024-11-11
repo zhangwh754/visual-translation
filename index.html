@@ -1,60 +1,81 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>可视化翻译</title>
-    <link rel="stylesheet" href="./style/style.css" />
-  </head>
 
-  <body>
-    <div class="header">
-      <div class="left"></div>
-      <div class="right">
-        <button disabled class="button" id="action-1">新增空白块</button>
-        <button disabled class="button" id="action-3">切换拖拽</button>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>可视化翻译</title>
+  <link rel="stylesheet" href="./style/style.css" />
+</head>
+
+<body>
+  <div class="header">
+    <div class="left">
+      <input type="radio" id="translateChoice2" name="translate" value="google" />
+      <label for="translateChoice2">谷歌翻译</label>
+
+      <input type="radio" id="translateChoice1" name="translate" value="baidu" />
+      <label for="translateChoice1">百度翻译</label>
+    </div>
+    <div class="right">
+      <button disabled class="button" id="action-1">新增空白块</button>
+      <button disabled class="button" id="action-3">切换拖拽</button>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="view">
+      <div class="panel panel-1">
+        <div class="select">
+          <label for="origin">原文:</label>
+
+          <select name="origin">
+            <option disabled value="">--请选择文件类型--</option>
+            <option value="lsx">Lsx</option>
+            <option value="xml">Xml</option>
+          </select>
+        </div>
+        <textarea id="origin"></textarea>
       </div>
     </div>
-
-    <div class="main">
-      <div class="view">
-        <div class="panel panel-1">
-          <div class="select">
-            <label for="origin">原文:</label>
-
-            <select name="origin">
-              <option disabled value="">--请选择文件类型--</option>
-              <option value="lsx">Lsx</option>
-              <option value="xml">Xml</option>
-            </select>
-          </div>
-          <textarea id="origin"></textarea>
-        </div>
-      </div>
-      <div class="view">
-        <div class="panel panel-2"></div>
-      </div>
-      <div class="view">
-        <div class="panel panel-3">
+    <div class="view">
+      <div class="panel panel-2"></div>
+    </div>
+    <div class="view">
+      <div class="panel panel-3">
+        <div>
+          <div><label for="translation">结果复制:</label></div>
           <div>
-            <div><label for="translation">结果复制:</label></div>
-            <div>
-              <button disabled class="button" id="action-2">复制</button>
-            </div>
+            <button disabled class="button" id="action-2">复制</button>
           </div>
-          <textarea id="translation"></textarea>
         </div>
-      </div>
-      <div class="view">
-        <div class="panel panel-4">
-          <div>暂无修改</div>
-        </div>
+        <textarea id="translation"></textarea>
       </div>
     </div>
+    <div class="view">
+      <div class="panel panel-4">
+        <div>暂无修改</div>
+      </div>
+    </div>
+  </div>
 
-    <script src="./lib/jquery.min.js"></script>
-    <script src="./utils/index.js"></script>
-    <script src="./utils/drag.js"></script>
-    <script src="./index.js"></script>
-  </body>
+  <div class="popup">
+    <p>
+      <label for="appid">appid:</label>
+      <input id="appid" name="appid" value="" />
+    </p>
+    <p>
+      <label for="secretKey">secretKey:</label>
+      <input type="password" id="secretKey" name="secretKey" value="" />
+    </p>
+  </div>
+
+  <script src="./lib/jquery.min.js"></script>
+  <script src="./lib/md5.js"></script>
+  <script src="./utils/index.js"></script>
+  <script src="./utils/drag.js"></script>
+  <script src="./utils/translate.js"></script>
+  <script src="./index.js"></script>
+</body>
+
 </html>
